@@ -1,0 +1,15 @@
+[user]
+    name = Michael McKeirnan
+    email = mmckeirnan@palantir.com
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[merge]
+    tool = vimdiff
+[diff]
+    tool = vimdiff
+[push]
+    default = matching
+[difftool]
+    prompt = false

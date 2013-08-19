@@ -1,0 +1,174 @@
+" =============================================================================
+"                               General settings
+" =============================================================================
+set nocompatible        " iMproved.
+
+set autoindent          " Copy indent from current line on starting a new line.
+"set smartindent         " And be smart about it
+set smarttab
+set backspace=indent,eol,start " Backspacing over everything in insert mode.
+set hidden              " Allow for putting dirty buffers in background.
+set history=1024        " Lines of command history
+set ignorecase          " Case-insensitive search
+set smartcase           " Override ignorecase when searching uppercase.
+set incsearch           " Jumps to search word as you type.
+set modeline            " Enables modelines.
+set wildmode=longest,list:full " How to complete <Tab> matches.
+"set tildeop            " Makes ~ an operator.
+set virtualedit=block   " Support moving in empty space in block mode.
+set mouse=a             " Enables mouse usage (all modes)
+set magic               " Improves default search
+set autoread            " Prompt to reread a file if it changes
+set wrap                " Wraps long lines
+set scrolloff=5         " Always shows five lines of vertical context around the cursor
+
+" Low priority for these files in tab-completion.
+set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
+set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
+
+set viminfo='20,\"500
+
+scriptencoding utf-8
+
+" =============================================================================
+"                                   Styling
+" =============================================================================
+set background=dark     " Syntax highlighting for a dark terminal background.
+set hlsearch            " Highlight search results.
+set ruler               " Show the cursor position all the time.
+set showbreak=↪         " Highlight non-wrapped lines.
+set showcmd             " Display incomplete command in bottom right corner.
+set showmatch           " Show matching brackets
+set number              " Display line numbers
+
+set t_Co=256            " We use 256 color terminal emulators these days.
+
+" Folding
+if version >= 600
+    set foldenable
+    set foldmethod=marker
+endif
+
+" =============================================================================
+"                                  Formatting
+" =============================================================================
+set formatoptions=tcrqn " See :h 'fo-table for a detailed explanation.
+set nojoinspaces        " Don't insert two spaces when joining after [.?!].
+set copyindent          " Copy the structure of existing indentation
+set expandtab           " Expand tabs to spaces.
+set tabstop=4           " number of spaces for a <Tab>.
+set shiftwidth=4        " Tab indention
+"set textwidth=79        " Text width
+
+" Indentation Tweaks.
+" e-s = do not indent if opening bracket is not first character in a line.
+" g0  = do not indent C++ scope declarations.
+" t0  = do not indent a function's return type declaration.
+" (0  = line up with next non-white character after unclosed parentheses...
+" W4  = ...but not if the last character in the line is an open parenthesis.
+set cinoptions=e-s,g0,t0,(0,W4
+
+" =============================================================================
+"                               Custom Functions
+" =============================================================================
+
+
+
+" =============================================================================
+"                                 Key Bindings
+" =============================================================================
+
+let mapleader=","
+
+:command NT NERDTreeToggle
+map <F2> :NERDTreeToggle<CR>
+
+map! jj <Esc>
+map gr gT
+map j gj
+map k gk
+
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Clear last search highlighting
+nnoremap <CR> :noh<CR><CR>
+
+" Toggle list mode (display unprintable characters).
+nnoremap <F11> :set list!<CR>
+
+" Toggle paste mode.
+set pastetoggle=<F12>
+
+" =============================================================================
+"                                    Vundle
+" =============================================================================
+
+filetype off
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'DamienCassou/textlint'
+"Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/nerdtree'
+Bundle 'godlygeek/tabular'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'jakar/vim-json'
+Bundle 'nono/vim-handlebars'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'groenewege/vim-less'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle "scrooloose/syntastic"
+Bundle "scrooloose/nerdcommenter"
+Bundle "ervandew/supertab"
+Bundle "vim-scripts/AutoComplPop"
+
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_colorscheme = 'solarized256'
+set laststatus=2
+
+let g:EasyMotion_leader_key = '<Leader>'
+
+" Solarized
+"let g:solarized_menu = 0
+"let g:solarized_termtrans = 1
+"let g:solarized_contrast = 'high'
+"let g:solarized_hitrail = 1
+"if !has('gui_running')
+"  let g:solarized_termcolors = 256
+"end
+silent! colorscheme solarized
+
+" LaTeX Suite: Prevents Vim 7 from setting filetype to 'plaintex'.
+let g:tex_flavor = 'latex'
+
+" Needs to be executed after Vundle.
+filetype plugin indent on
+
+" =============================================================================
+"                                Filetype Stuff
+" =============================================================================
+
+if &t_Co > 2 || has('gui_running')
+  syntax on
+endif
+
+if has("spell")
+  autocmd BufRead,BufNewFile *.dox  set spell
+  autocmd Filetype mail             set spell
+  autocmd Filetype tex              set spell
+endif
+
+" vim: set fenc=utf-8 sw=2 sts=2 foldmethod=marker :
+autocmd FileType make setlocal noexpandtab
