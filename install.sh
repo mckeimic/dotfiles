@@ -55,7 +55,7 @@ get_it()
         fi
     else
         echo "Pulling down the latest version with curl..."
-        mkdir -p /tmp/mconfig
+        mkdir -p /tmp/mconfig || true
 
         trap 'rm -rf /tmp/mconfig/; exit' INT TERM 
         cd /tmp/mconfig
@@ -66,7 +66,7 @@ get_it()
         trap - INT TERM 
 
     fi
-    mkdir -p "$install_dir/backups"
+    mkdir -p "$install_dir/backups" || true
 
     trap - INT TERM 
 }
@@ -137,7 +137,7 @@ configure_vim()
 
     # Link to new stuff
     ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
-    mkdir -p ~/.vim/bundle/
+    mkdir -p ~/.vim/bundle/ || true
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
 }
@@ -223,7 +223,7 @@ configure_iterm2()
 
 configure_terminator()
 {
-    mkdir -p ~/.config/terminator
+    mkdir -p ~/.config/terminator || true
 
 }
 
