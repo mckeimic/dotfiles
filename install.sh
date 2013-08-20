@@ -7,7 +7,7 @@ install_dir="~/.mconfig"
 backup_dir="$install_dir/backups"
 
 echo 'Welcome!'
-echo 'Prompts are in the form: Question? [default answer] '
+echo 'The capitalized letter in each prompt is the default'
 echo 'Press enter for the default answer or specify manually'
 echo
 echo 'All of your old configuration files will be backed up in ~/.mconfig/backup'
@@ -68,13 +68,6 @@ get_it()
     fi
 
     trap - INT TERM EXIT
-}
-
-create_link()
-{
-    config_location="$1"
-    link_location="$2"
-    ln -s "$config_location" "$link_location"
 }
 
 configure()
@@ -142,7 +135,7 @@ configure_vim()
     cp -r ~/.vim* "$backup_dir"
 
     # Link to new stuff
-    ln -s "$install_dir/config/vim/vimrc" ~/.vimrc
+    ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
     mkdir -p ~/.vim/bundle/
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
     vim +BundleInstall +qall
@@ -153,14 +146,14 @@ configure_portable_vim()
     # Backup old Vim things
     touch ~/.vimrc
     cp -r ~/.vim* "$backup_dir"
-    ln -s "$install_dir/config/vim/vimrc" ~/.vimrc
+    ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
 }
 
 configure_tmux()
 {
     touch ~/.tmux.conf
     cp -r ~/.tmux* "$backup_dir"    
-    ln -s "$install_dir/config/tmux/tmux.conf" ~/.tmux.conf
+    ln -fs "$install_dir/config/tmux/tmux.conf" ~/.tmux.conf
 }
 
 configure_ssh()
@@ -176,7 +169,7 @@ configure_git()
     touch ~/.gitconfig
     echo "Ok, time to set up your Git."
     cp ~/.gitconfig "$backup_dir/"
-    ln -s "$install_dir/config/git/gitconfig" ~/.gitconfig
+    ln -fs "$install_dir/config/git/gitconfig" ~/.gitconfig
     echo "Enter the information you'd like displayed for commits below:"
     read -p "Name: " name
     read -p "Email: " email
@@ -190,8 +183,8 @@ configure_xmonad()
     touch ~/.xmobarrc
     echo "Don't forget to install gmrun and xmobar later!"
     cp -r ~/.xmo* "$backup_dir/"
-    ln -s  "$install_dir/config/xmonad/xmonad/" "~/.xmonad"
-    ln -s  "$install_dir/config/xmonad/xmobarrc" "~/.xmobarrc"
+    ln -fs  "$install_dir/config/xmonad/xmonad/" "~/.xmonad"
+    ln -fs  "$install_dir/config/xmonad/xmobarrc" "~/.xmobarrc"
 }
 
 configure_bash()
@@ -199,7 +192,8 @@ configure_bash()
     touch ~/.bashrc.local
     touch ~/.bashrc
     cp ~/.bashrc* "$backup_dir/"
-    ln -s "$install_dir/config/bash/bashrc" ~/.bashrc
+    ln -fs "$install_dir/config/bash/bashrc" ~/.bashrc
+    ln -fs "$install_dir/assets/dir_colors" ~/.dir_colors
 }
 
 configure_zsh()
@@ -207,9 +201,13 @@ configure_zsh()
     touch ~/.zshrc
     touch ~/.zshrc.local
     cp ~/.zsh* "$backup_dir/"
-    ln -s "$install_dir/zsh/zshrc" ~/.zshrc
+    ln -fs "$install_dir/zsh/zshrc" ~/.zshrc
     echo "Installing Oh-my-zsh now"
     curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+
+    if ask_about "Install zsh syntax highlighting? (Requires git)" Y; then
+        git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    fi
 }
 
 configure_gnome_terminal()
@@ -247,3 +245,5 @@ update()
 #:)           echo "PRINTING USAGE";;
     #?)           echo "DONT EVEN KNOW";;
     #esac
+
+get_it

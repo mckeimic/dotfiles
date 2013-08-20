@@ -1,15 +1,11 @@
 #mConfig#
 
 ##Getting It##
-For the best possible solution using git:
-    git clone http://github.com/mckeimic/mconfig.git
 
-Otherwise, download zip or tar from mckeimic.com
-    wget -O mConfig.zip http://mckeimic.com/mConfig
+Download and run install.sh
+     bash <(curl -s https://github.com/mckeimic/mConfig/install.sh)
 
-##"Installing" It##
-Run the install script inside the folder with a target type of installation to perform.
-Use the following syntax:
-    ./install.sh [install|reinstall|clean|update] [ubuntu|linux|OSX]
+In a perfect world, you have already installed git on your system which will allow for painless and easy updates later.
+If not, thats cool too. The script will download a dumb version of the files and position them correctly anyway.
 
 
