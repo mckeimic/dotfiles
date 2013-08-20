@@ -66,7 +66,6 @@ get_it()
         trap - INT TERM 
 
     fi
-    mkdir -p "$install_dir/backup"
 
     trap - INT TERM 
 }
