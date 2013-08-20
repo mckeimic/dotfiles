@@ -3,7 +3,7 @@
 set -e # If anything returns a non-true value, everything dies before snowballing.
 set -u # Any attempted use of unitialized variables shall result in death.
 
-install_dir="~/.mconfig"
+install_dir=".mconfig"
 backup_dir="$install_dir/backups"
 
 echo 'Welcome!'
@@ -66,6 +66,7 @@ get_it()
         trap - INT TERM 
 
     fi
+    mkdir -p "$install_dir/backup"
 
     trap - INT TERM 
 }
