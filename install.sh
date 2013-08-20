@@ -247,3 +247,4 @@ update()
     #esac
 
 get_it
+configure
