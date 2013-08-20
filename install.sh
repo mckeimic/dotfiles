@@ -45,29 +45,30 @@ ask_about()
 
 get_it()
 {
-    trap 'rm -rf "$install_dir"; exit' INT TERM EXIT # Attempts to delte the install directory if anything dies half way
+    trap 'rm -rf "$install_dir/"; exit' INT TERM # Attempts to delte the install directory if anything dies half way
     # Asks whether to download everything with curl or using git
     if ask_about "Clone from Github?" Y; then
         if ask_about "Use SSH? (Your public key must be registered with Github)" Y; then
-            git clone git@github.com:mckeimic/mconfig.git "$install_dir"
+            git clone git@github.com:mckeimic/mconfig.git "$install_dir/"
         else
-            git clone https://github.com/mckeimic/mconfig.git "$install_dir"
+            git clone https://github.com/mckeimic/mconfig.git "$install_dir/"
         fi
     else
         echo "Pulling down the latest version with curl..."
         mkdir -p /tmp/mconfig
 
-        trap 'rm -rf /tmp/mconfig/; exit' INT TERM EXIT
+        trap 'rm -rf /tmp/mconfig/; exit' INT TERM 
         cd /tmp/mconfig
         curl -sS "http://mckeimic.com/mconfig/mconfig.zip" > /tmp/mconfig/mconfig.zip
         unzip /tmp/mconfig/mconfig.zip
         rm -rf /tmp/mconfig/mconfig.zip
-        mv/tmp/mconfig/mconfig "$install_dir"
-        trap - INT TERM EXIT
+        mv/tmp/mconfig/mconfig "$install_dir/"
+        trap - INT TERM 
 
     fi
+    mkdir -p "$install_dir/backup"
 
-    trap - INT TERM EXIT
+    trap - INT TERM 
 }
 
 configure()
