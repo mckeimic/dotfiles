@@ -60,7 +60,7 @@ else
     read -p "Ok then genius, where is all my stuff? " install_dir
 fi
 
-mkdir -p "$install_dir/backup
+mkdir -p "$install_dir/backup"
 
 if ask_about "Setup Vim?" Y; then
     touch ~/.vimrc
@@ -68,7 +68,7 @@ if ask_about "Setup Vim?" Y; then
     ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
     mkdir -p ~/.vim/bundle
     vim +BundleInstall +qall
-elsif ask_about "Do you at least want a minimal vim config?" Y; then
+elsif ask_about "Do you at least want a minimal vim config?" Y;then
     echo "Someday soon."
 fi
 
