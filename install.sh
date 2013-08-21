@@ -1,16 +1,7 @@
 #!/bin/bash
 
-set -e # If anything returns a non-true value, everything dies before snowballing.
-set -u # Any attempted use of unitialized variables shall result in death.
-
-install_dir=".mconfig"
-backup_dir="$install_dir/backups"
-
-echo 'Welcome!'
-echo 'The capitalized letter in each prompt is the default'
-echo 'Press enter for the default answer or specify manually'
-echo
-echo 'All of your old configuration files will be backed up in ~/.mconfig/backup'
+set -e 
+set -u
 
 ask_about()
 {
@@ -43,209 +34,102 @@ ask_about()
     done
 }
 
-get_it()
-{
-    trap 'rm -rf "$install_dir/"; exit' INT TERM # Attempts to delte the install directory if anything dies half way
-    # Asks whether to download everything with curl or using git
-    if ask_about "Clone from Github?" Y; then
-        if ask_about "Use SSH? (Your public key must be registered with Github)" Y; then
-            git clone git@github.com:mckeimic/mconfig.git "$install_dir/"
-        else
-            git clone https://github.com/mckeimic/mconfig.git "$install_dir/"
-        fi
-    else
-        echo "Pulling down the latest version with curl..."
-        mkdir -p /tmp/mconfig || true
+echo
+read -p "Hi"
+echo
+echo "You should install these things first if you can:"
+echo "Vim, tmux, git, terminator, iTerm2, Xmonad, and Zsh"
+echo "Unless they don't apply to you or you're in a god-forsaken wasteland of an OS of course"
+echo
+echo 
+echo "If you can't do the whole git thing either, you should run this instead:"
+echo "curl -sS 'http://mckeimic.com/mconfig/mconfig.zip' > temp.zip && unzip temp.zip"
+echo "I also highly recommend being in your home directory right now."
+if ask_about "Keep going? (Y) Or stop to do that stuff first? (N)" Y; then
+    echo "Great. Enjoy."
+    echo
+    echo
+else
+    exit;
+fi
 
-        trap 'rm -rf /tmp/mconfig/; exit' INT TERM 
-        cd /tmp/mconfig
-        curl -sS "http://mckeimic.com/mconfig/mconfig.zip" > /tmp/mconfig/mconfig.zip
-        unzip /tmp/mconfig/mconfig.zip
-        rm -rf /tmp/mconfig/mconfig.zip
-        mv/tmp/mconfig/mconfig "$install_dir/"
-        trap - INT TERM 
+if ask_about "Clone with git?" Y; then
+    git clone http://github.com/mckeimic/mconfig.git .mconfig
+    install_dir=".mconfig"
+else
+    read -p "Ok then genius, where is all my stuff? " install_dir
+fi
 
-    fi
-    mkdir -p "$install_dir/backups" || true
+mkdir -p "$install_dir/backup
 
-    trap - INT TERM 
-}
-
-configure()
-{
-    # Vim
-    if ask_about "Configure Vim? (No for portable Vim or if you don't have Git)" Y; then
-        configure_vim;
-    else
-        if ask_about "Configure portable Vim? (If you don't have Git, or want this to be lightweight)" Y; then
-            configure_portable_vim
-        fi
-    fi
-
-    # Tmux
-    if ask_about "Configure Tmux?" Y; then
-        configure_tmux
-    fi
-
-    # SSH
-    if ask_about "Configur SSH?" Y; then
-        configure_ssh
-    fi
-
-    # Git
-    if ask_about "Configure Git?" Y; then
-        configure_git
-    fi
-
-    # Xmonad
-    if ask_about "Configure Xmonad?" Y; then
-        configure_xmonad
-    fi
-
-    # Bash
-    if ask_about "Configure Bash?" Y; then
-        configure_bash
-    fi
-
-    # Zsh
-    if ask_about "Configure Zsh (and change shell?)" Y; then
-        configure_zsh
-    fi
-
-    # Gnome-Terminal
-    if ask_about "Setup Gnome-Terminal?" Y; then
-        configure_gnome_terminal
-    fi
-
-    # iTerm2
-    if ask_about "Setup iTerm2?" Y; then
-        configure_iterm2
-    fi
-
-    # Terminator
-    if ask_about "Setup Gnome-Terminal?" Y; then
-        configure_terminator
-    fi
-    
-}
-
-configure_vim()
-{
-    # Backup old Vim things
-    touch ~/.vimrrc
-    cp -r ~/.vim* "$backup_dir"
-
-    # Link to new stuff
-    ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
-    mkdir -p ~/.vim/bundle/ || true
-    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-    vim +BundleInstall +qall
-}
-
-configure_portable_vim()
-{
-    # Backup old Vim things
+if ask_about "Setup Vim?" Y; then
     touch ~/.vimrc
-    cp -r ~/.vim* "$backup_dir"
+    mv ~/.vimrc "$install_dir/backup/"
     ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
-}
+    mkdir -p ~/.vim/bundle
+    vim +BundleInstall +qall
+elsif ask_about "Do you at least want a minimal vim config?" Y; then
+    echo "Someday soon."
+fi
 
-configure_tmux()
-{
-    touch ~/.tmux.conf
-    cp -r ~/.tmux* "$backup_dir"    
-    ln -fs "$install_dir/config/tmux/tmux.conf" ~/.tmux.conf
-}
-
-configure_ssh()
-{
-    touch ~/.ssh/config
-    cp ~/.ssh/config "$backup_dir/ssh/"
-    cp "$install_dir/config/ssh/config" ~/.ssh/config
-
-}
-
-configure_git()
-{
+if ask_about "Setup Git?" Y; then
     touch ~/.gitconfig
-    echo "Ok, time to set up your Git."
-    cp ~/.gitconfig "$backup_dir/"
+    mv ~/.gitconfig "$install_dir/backup/"
     ln -fs "$install_dir/config/git/gitconfig" ~/.gitconfig
-    echo "Enter the information you'd like displayed for commits below:"
-    read -p "Name: " name
+    echo "Ok. We're gonna set up Git now."
+    echo "Enter the information you want to show up on your commits: "
+    read -p "Name:  " name
     read -p "Email: " email
+    git config --global user.name "$name" 
+    git config --global user.email "$email" 
+fi
 
-    git config --global user.name "$name"
-    git config --global user.email "$email"
-}
+if ask_about "Setup Tmux?" Y; then
+    touch ~/.tmux.conf
+    mv ~/.tmux.conf "$install_dir/backup/"
+    ln -fs "$install_dir/config/tmux/tmux.conf" ~/.tmux.conf
+fi
 
-configure_xmonad()
-{
+if ask_about "Setup Xmonad?" N; then
     touch ~/.xmobarrc
-    echo "Don't forget to install gmrun and xmobar later!"
-    cp -r ~/.xmo* "$backup_dir/"
-    ln -fs  "$install_dir/config/xmonad/xmonad/" "~/.xmonad"
-    ln -fs  "$install_dir/config/xmonad/xmobarrc" "~/.xmobarrc"
-}
+    mkdir -p ~/.xmonad
+    mv "~/.xmo*" "$install_dir/backup/"
+    ln -fs "$install_dir/config/xmonad/xmonad/" ~/.xmonad/
+    ln -fs "$install_dir/config/xmonad/xmobarrc" ~/.xmobarrc
+fi
 
-configure_bash()
-{
-    touch ~/.bashrc.local
+if ask_about "Setup Bash?" Y; then
     touch ~/.bashrc
-    cp ~/.bashrc* "$backup_dir/"
+    touch ~/.bashrc.local
+    mv ~/.bashrc "$install_dir/backup/"
+    cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/bash/bashrc" ~/.bashrc
-    ln -fs "$install_dir/assets/dir_colors" ~/.dir_colors
-}
+fi
 
-configure_zsh()
-{
+if ask_about "Setup Zsh?" Y; then
     touch ~/.zshrc
     touch ~/.zshrc.local
-    cp ~/.zsh* "$backup_dir/"
-    ln -fs "$install_dir/zsh/zshrc" ~/.zshrc
-    echo "Installing Oh-my-zsh now"
+    mv ~/.zshrc "$install_dir/backup/"
+    cp "$install_dir/assets/dir_colors" ~/.dir_colors
+    ln -fs "$install_dir/config/zsh/zshrc" ~/.zshrc
     curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-
-    if ask_about "Install zsh syntax highlighting? (Requires git)" Y; then
+    if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
         git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
-}
+fi
 
-configure_gnome_terminal()
-{
-    pass;
-}
+if ask_about "Setup Terminator?" Y; then
+    mkdir -p ~/.config/terminator
+    mkir -p "$install_dir/backup/.config/terminator"
+    touch ~/.config/terminator/config
+    mv ~/.config/terminator/config "$install_dir/backup/.config/terminator/"
+    ln -fs "$install_dir/config/terminator/config" ~/.config/terminator/config
+fi
 
-configure_iterm2()
-{
-    pass;
-}
+if ask_about "Setup Gnome-Terminal? (Requires Git)" N;then
+    git clone https://github.com/sigurdga/gnome-terminal-colors-solarized /tmp/colors 
+    /tmp/colors/install.sh
+    rm -rf /tmp/colors
+fi
 
-configure_terminator()
-{
-    mkdir -p ~/.config/terminator || true
-
-}
-
-clean()
-{
-    echo "Delete/restore everything this script does"
-}
-
-update()
-{
-    echo "Pull down and update files using git"
-}
-
-
-#case "$1" in
-#"install")   echo "INSTALLING";;
-    #"reinstall") echo "REINSTALLING";;
-#"clean")     echo "CLEANING UP";;
-    #"update")    echo "UPDATING";;
-#:)           echo "PRINTING USAGE";;
-    #?)           echo "DONT EVEN KNOW";;
-    #esac
-
-get_it
-configure
+echo "Well, thats about it for now."
