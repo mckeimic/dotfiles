@@ -123,7 +123,7 @@ fi
 
 if ask_about "Setup Terminator?" Y; then
     mkdir -p ~/.config/terminator
-    mkir -p "$install_dir/backup/.config/terminator"
+    mkdir -p "$install_dir/backup/.config/terminator"
     touch ~/.config/terminator/config
     mv ~/.config/terminator/config "$install_dir/backup/.config/terminator/"
     ln -fs "$install_dir/config/terminator/config" ~/.config/terminator/config
