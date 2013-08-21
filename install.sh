@@ -110,7 +110,7 @@ if ask_about "Setup Bash?" Y; then
 fi
 
 if ask_about "Setup Zsh?" Y; then
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+    sudo curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
     if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
         git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
