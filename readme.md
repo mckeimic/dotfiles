@@ -4,9 +4,9 @@
 
 Download and run install.sh
 
-    bash <(curl -s http://mckeimic.com/install.sh)
+    bash <(curl -s https://raw.github.com/mckeimic/mconfig/master/install.sh)
 
-In a perfect world, you have already installed git on your system which will allow for painless and easy updates later.
-If not, thats cool too. The script will download a dumb version of the files and position them correctly anyway.
+##Updating It##
 
+I recommend going into the installation directory (probably ~/.mconfig/) and doing a git pull; if you set it up without git though you're on your own.
 
