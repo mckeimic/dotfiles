@@ -63,7 +63,7 @@ fi
 mkdir -p "$install_dir/backup"
 
 if ask_about "Setup Vim?" Y; then
-    touch ~/.vimrc
+    touch "~/.vimrc"
     mv ~/.vimrc "$install_dir/backup/"
     ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
     mkdir -p ~/.vim/bundle
@@ -75,7 +75,7 @@ else
 fi
 
 if ask_about "Setup Git?" Y; then
-    touch ~/.gitconfig
+    touch "~/.gitconfig"
     mv ~/.gitconfig "$install_dir/backup/"
     ln -fs "$install_dir/config/git/gitconfig" ~/.gitconfig
     echo "Ok. We're gonna set up Git now."
@@ -87,13 +87,13 @@ if ask_about "Setup Git?" Y; then
 fi
 
 if ask_about "Setup Tmux?" Y; then
-    touch ~/.tmux.conf
+    touch "~/.tmux.conf"
     mv ~/.tmux.conf "$install_dir/backup/"
     ln -fs "$install_dir/config/tmux/tmux.conf" ~/.tmux.conf
 fi
 
 if ask_about "Setup Xmonad?" N; then
-    touch ~/.xmobarrc
+    touch "~/.xmobarrc"
     mkdir -p ~/.xmonad
     mv "~/.xmonad" "$install_dir/backup/"
     mv "~/.xmobarrc" "$install_dir/backup/"
@@ -102,8 +102,8 @@ if ask_about "Setup Xmonad?" N; then
 fi
 
 if ask_about "Setup Bash?" Y; then
-    touch ~/.bashrc
-    touch ~/.bashrc.local
+    touch "~/.bashrc"
+    touch "~/.bashrc.local"
     mv ~/.bashrc "$install_dir/backup/"
     cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/bash/bashrc" ~/.bashrc
@@ -115,19 +115,21 @@ if ask_about "Setup Zsh?" Y; then
     if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
         git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
-    touch ~/.zshrc
-    touch ~/.zshrc.local
+    touch "~/.zshrc"
+    touch "~/.zshrc.local"
     mv ~/.zshrc "$install_dir/backup/"
     cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/zsh/zshrc" ~/.zshrc
     set -e
-    chsh -s $(which zsh)
+    if ask_about "Permanently change to Zsh?" Y;then
+        chsh -s $(which zsh)
+    fi
 fi
 
 if ask_about "Setup Terminator?" Y; then
     mkdir -p ~/.config/terminator
     mkdir -p "$install_dir/backup/.config/terminator"
-    touch ~/.config/terminator/config
+    touch "~/.config/terminator/config"
     mv ~/.config/terminator/config "$install_dir/backup/.config/terminator/"
     ln -fs "$install_dir/config/terminator/config" ~/.config/terminator/config
 fi
