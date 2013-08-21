@@ -68,8 +68,10 @@ if ask_about "Setup Vim?" Y; then
     ln -fs "$install_dir/config/vim/vimrc" ~/.vimrc
     mkdir -p ~/.vim/bundle
     vim +BundleInstall +qall
-elsif ask_about "Do you at least want a minimal vim config?" Y;then
-    echo "Someday soon."
+else 
+    if ask_about "Do you at least want a minimal vim config?" Y;then
+        echo "Someday soon."
+    fi
 fi
 
 if ask_about "Setup Git?" Y; then
