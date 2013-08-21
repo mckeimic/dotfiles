@@ -121,6 +121,7 @@ if ask_about "Setup Zsh?" Y; then
     cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/zsh/zshrc" ~/.zshrc
     set -e
+    chsh -s $(which zsh)
 fi
 
 if ask_about "Setup Terminator?" Y; then
