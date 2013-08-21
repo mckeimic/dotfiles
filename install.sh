@@ -109,15 +109,15 @@ if ask_about "Setup Bash?" Y; then
 fi
 
 if ask_about "Setup Zsh?" Y; then
+    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+    if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
+        git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    fi
     touch ~/.zshrc
     touch ~/.zshrc.local
     mv ~/.zshrc "$install_dir/backup/"
     cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/zsh/zshrc" ~/.zshrc
-    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-    if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
-        git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    fi
 fi
 
 if ask_about "Setup Terminator?" Y; then
