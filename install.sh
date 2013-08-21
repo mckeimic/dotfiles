@@ -95,7 +95,8 @@ fi
 if ask_about "Setup Xmonad?" N; then
     touch ~/.xmobarrc
     mkdir -p ~/.xmonad
-    mv "~/.xmo*" "$install_dir/backup/"
+    mv "~/.xmonad" "$install_dir/backup/"
+    mv "~/.xmobarrc" "$install_dir/backup/"
     ln -fs "$install_dir/config/xmonad/xmonad/" ~/.xmonad/
     ln -fs "$install_dir/config/xmonad/xmobarrc" ~/.xmobarrc
 fi
