@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 set -u
 
 ask_about()
@@ -109,6 +110,7 @@ if ask_about "Setup Bash?" Y; then
 fi
 
 if ask_about "Setup Zsh?" Y; then
+    set +e
     curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
     if ask_about "Install Zsh Syntax highlighting? (Requires git)" Y; then
         git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
@@ -118,6 +120,7 @@ if ask_about "Setup Zsh?" Y; then
     mv ~/.zshrc "$install_dir/backup/"
     cp "$install_dir/assets/dir_colors" ~/.dir_colors
     ln -fs "$install_dir/config/zsh/zshrc" ~/.zshrc
+    set -e
 fi
 
 if ask_about "Setup Terminator?" Y; then
@@ -134,4 +137,5 @@ if ask_about "Setup Gnome-Terminal? (Requires Git)" N;then
     rm -rf /tmp/colors
 fi
 
-echo "Well, thats about it for now."
+echo "We made it."
+echo "Enjoy!"
