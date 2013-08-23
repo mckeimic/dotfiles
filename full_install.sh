@@ -36,7 +36,4 @@ ln -is ~/.mconfig/assets/dir_colors ~/.dir_colors
 echo "Configuring bash things..."
 ln -is ~/.mconfig/config/bash/bashrc
 
-echo "Checking that the colors are still pretty..."
-./mconfig/assets/colorCheck.pl
-
-less "~/.mconfig/assets/further_configuration.md"
+echo 'Further configuration info can be found in .mconfig/assets/further_configuration.md'
