@@ -23,4 +23,3 @@ case "$option" in
 esac
 
 echo "Enjoy!"
-
