@@ -5,7 +5,7 @@
 Before runnning anything, there are two types of install:
   1. Full - a complete install of my environment. Everything from .vimrc to .xmonad/ is installed
   2. Minimal - a travelling installation including just a more portable version of .vimrc and tmux
-The full option installs configuration for `git tmux vim xmonad python ls zsh bash` and git is *required* for the install
+The full option installs configuration for `git tmux vim xmonad python ls zsh bash` and git is **required** for the install
 
 The minimal option has no significant requirements as it simply downloads, unzips, and later deletes itself after putting its configs in the right places. 
 
