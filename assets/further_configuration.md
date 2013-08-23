@@ -1,6 +1,6 @@
 #Further configuration best left up to your discretion#
 ##Solarized for Gnome-Terminal##
-Just run `git clone git://github.com/sigurdga/gnome-terminal-solarized.git && cd gnome-terminal-solarized && ./solarize`
+Just run `cd /tmp && git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git && cd gnome-terminal-solarized && ./solarize`
 
 ##Powerline Font Install##
 In the assets directory is a powerline font that fits nicely with some modifications to Vim
