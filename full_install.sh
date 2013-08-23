@@ -38,3 +38,5 @@ ln -is ~/.mconfig/config/bash/bashrc
 
 echo "Checking that the colors are still pretty..."
 ./mconfig/assets/colorCheck.pl
+
+less "~/.mconfig/assets/further_configuration.md"
