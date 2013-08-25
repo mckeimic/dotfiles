@@ -23,7 +23,7 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/cu
 touch ~/.bashrc.local
 
 echo "Linking xmonad things..."
-ln -ins ~/.mconfig/config/xmonad/ ~/.xmonad/
+ln -is ~/.mconfig/config/xmonad/ ~/.xmonad/
 ln -is ~/.mconfig/config/xmonad/conky_dzen ~/.conky_dzen
 
 echo "Configuring git. Use the information you want to show up in commits"
