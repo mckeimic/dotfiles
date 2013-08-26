@@ -47,12 +47,14 @@ import qualified Data.Map as M
 myTerminal      = "gnome-terminal"
 -- Define modMask
 modMask' :: KeyMask
-modMask' = mod4Mask
+modMask' = mod1Mask
 -- Define workspaces
 myWorkspaces    = ["1:main","2:web","3:vim","4:chat","5:music", "6:gimp"]
 -- Dzen/Conky
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '24' -w '640' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c /home/my_user/.xmonad/.conky_dzen | dzen2 -x '2080' -w '1040' -h '24' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"
+{-myXmonadBar = "dzen2 -x '1440' -y '0' -h '24' -w '640' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"-}
+{-myStatusBar = "conky -c /home/mckeimic/.conky_dzen | dzen2 -x '2080' -w '1040' -h '24' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"-}
+myXmonadBar = "dzen2 -xs 1 -w '725' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
+myStatusBar = "conky -c /home/mckeimic/.conky_dzen | dzen2 -xs 1 -x '725' -w 750 -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF'"
 myBitmapsDir = "/home/my_user/.xmonad/dzen2"
 --}}}
 -- Main {{{
@@ -202,19 +204,12 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask,                    xK_p        ), runOrRaisePrompt largeXPConfig)
     , ((modMask .|. shiftMask,      xK_Return   ), spawn $ XMonad.terminal conf)
     , ((modMask,                    xK_F2       ), spawn "gmrun")
+    , ((modMask,                    xK_g       ), spawn "google-chrome")
     , ((modMask .|. shiftMask,      xK_c        ), kill)
     , ((modMask .|. shiftMask,      xK_l        ), spawn "slock")
     -- Programs
     , ((0,                          xK_Print    ), spawn "scrot -e 'mv $f ~/screenshots/'")
-    , ((modMask,		            xK_o        ), spawn "chromium-browser")
     , ((modMask,                    xK_m        ), spawn "nautilus --no-desktop --browser")
-    -- Media Keys
-    , ((0,                          0x1008ff12  ), spawn "amixer -q sset Headphone toggle")        -- XF86AudioMute
-    , ((0,                          0x1008ff11  ), spawn "amixer -q sset Headphone 5%-")   -- XF86AudioLowerVolume
-    , ((0,                          0x1008ff13  ), spawn "amixer -q sset Headphone 5%+")   -- XF86AudioRaiseVolume
-    , ((0,                          0x1008ff14  ), spawn "rhythmbox-client --play-pause")
-    , ((0,                          0x1008ff17  ), spawn "rhythmbox-client --next")
-    , ((0,                          0x1008ff16  ), spawn "rhythmbox-client --previous")
  
     -- layouts
     , ((modMask,                    xK_space    ), sendMessage NextLayout)
