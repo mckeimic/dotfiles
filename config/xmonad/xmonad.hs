@@ -49,12 +49,19 @@ myTerminal      = "gnome-terminal"
 modMask' :: KeyMask
 modMask' = mod1Mask
 -- Define workspaces
-myWorkspaces    = ["1:main","2:web","3:vim","4:chat","5:music", "6:gimp"]
+myWorkspaces    = ["1:main","2:web","3:terminal","4:chat","5:music", "6:VM"]
 -- Dzen/Conky
 {-myXmonadBar = "dzen2 -x '1440' -y '0' -h '24' -w '640' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"-}
 {-myStatusBar = "conky -c /home/mckeimic/.conky_dzen | dzen2 -x '2080' -w '1040' -h '24' -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF' -y '0'"-}
-myXmonadBar = "dzen2 -xs 1 -w '725' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c /home/mckeimic/.conky_dzen | dzen2 -xs 1 -x '725' -w 750 -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF'"
+--
+-- OSX Virtual Machine
+{-myXmonadBar = "dzen2 -xs 1 -w '725' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"-}
+{-myStatusBar = "conky -c /home/mckeimic/.conky_dzen | dzen2 -xs 1 -x '725' -w 750 -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF'"-}
+-- 
+-- Ubuntu Multi Head @ work
+myXmonadBar = "dzen2 -xs 1 -h 18 -w '800' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
+myStatusBar = "conky -c ~/.conky_dzen | dzen2 -xs 1 -h 18 -x '800' -w 800 -ta 'r' -bg '#1B1D1E' -fg '#FFFFFF'"
+
 myBitmapsDir = "/home/my_user/.xmonad/dzen2"
 --}}}
 -- Main {{{
@@ -83,10 +90,10 @@ manageHook' = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
     , [className    =? c            --> doShift  "1:main"   |   c   <- myDev    ] -- move dev to main
     , [className    =? c            --> doShift  "2:web"    |   c   <- myWebs   ] -- move webs to main
-    , [className    =? c            --> doShift  "3:vim"    |   c   <- myVim    ] -- move webs to main
+    , [className    =? c            --> doShift  "3:terminal"    |   c   <- myVim    ] -- move webs to main
     , [className    =? c            --> doShift	 "4:chat"   |   c   <- myChat   ] -- move chat to chat
     , [className    =? c            --> doShift  "5:music"  |   c   <- myMusic  ] -- move music to music
-    , [className    =? c            --> doShift  "6:gimp"   |   c   <- myGimp   ] -- move img to div
+    , [className    =? c            --> doShift  "6:VM"   |   c   <- myvm   ] -- move img to div
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
     , [isFullscreen                 --> myDoFullFloat                           ]
@@ -99,11 +106,11 @@ manageHook' = (composeAll . concat $
  
         -- classnames
         myFloats  = ["Smplayer","MPlayer","VirtualBox","Xmessage","XFontSel","Downloads","Nm-connection-editor"]
-        myWebs    = ["Firefox","Google-chrome","Chromium", "Chromium-browser"]
+        myWebs    = ["Firefox","Google-chrome"]
         myMovie   = ["Boxee","Trine"]
         myMusic	  = ["Rhythmbox","Spotify"]
         myChat	  = ["Pidgin","Buddy List"]
-        myGimp	  = ["Gimp"]
+        myvm	  = ["VirtualBox"]
         myDev	  = ["gnome-terminal"]
         myVim	  = ["Gvim"]
  
@@ -118,7 +125,7 @@ myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
 layoutHook'  =  onWorkspaces ["1:main","5:music"] customLayout $ 
-                onWorkspaces ["6:gimp"] gimpLayout $ 
+                {-onWorkspaces ["6:VM"] vmlayout $ -}
                 onWorkspaces ["4:chat"] imLayout $
                 customLayout2
  
@@ -154,9 +161,9 @@ customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
   where
     tiled   = ResizableTall 1 (2/100) (1/2) []
  
-gimpLayout  = avoidStruts $ withIM (0.11) (Role "gimp-toolbox") $
-              reflectHoriz $
-              withIM (0.15) (Role "gimp-dock") Full
+{-vmlayout  = avoidStruts $ withIM (0.11) (Role "gimp-toolbox") $-}
+              {-reflectHoriz $-}
+              {-withIM (0.15) (Role "gimp-dock") Full-}
  
 imLayout    = avoidStruts $ withIM (1%5) (And (ClassName "Pidgin") (Role "buddy_list")) Grid 
 --}}}
@@ -205,6 +212,7 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask,      xK_Return   ), spawn $ XMonad.terminal conf)
     , ((modMask,                    xK_F2       ), spawn "gmrun")
     , ((modMask,                    xK_g       ), spawn "google-chrome")
+    , ((modMask,                    xK_z       ), spawn "gnome-screensaver-command -l")
     , ((modMask .|. shiftMask,      xK_c        ), kill)
     , ((modMask .|. shiftMask,      xK_l        ), spawn "slock")
     -- Programs
