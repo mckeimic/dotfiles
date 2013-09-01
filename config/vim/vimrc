@@ -40,6 +40,7 @@ set showbreak=↪         " Highlight non-wrapped lines.
 set showcmd             " Display incomplete command in bottom right corner.
 set showmatch           " Show matching brackets
 set number              " Display line numbers
+set cursorline
 
 set t_Co=256            " We use 256 color terminal emulators these days.
 
