@@ -40,15 +40,14 @@ main = do
                             { ppCurrent = dzenColor "#b58900" "" . wrap "[" "]"
                             , ppUrgent  = dzenColor "#dc322f" "" . wrap "(" ")"
                             , ppTitle   = dzenColor "#268bd2" "" . shorten 70
-                            , ppOrder   = reverse
                             , ppOutput  = hPutStrLn dzenXmonad
-                            , ppLayout  = wrap "^i(.xmonad/icons/" ".xbm)" . (map toLower)
+                            {-, ppLayout  = wrap "^i(.xmonad/icons/" ".xbm)" . (map toLower)-}
                             } >> fadeWindowsLogHook myFadeHook
              , handleEventHook = ewmhDesktopsEventHook <+> fadeWindowsEventHook
              , normalBorderColor  = "#586e75"
              , focusedBorderColor = "#d33682"
              , modMask            = myModMask
-             , terminal           = "xterm"
+             , terminal           = "gnome-terminal"
              , workspaces         = myWorkspaces
              }
              `additionalKeys`
