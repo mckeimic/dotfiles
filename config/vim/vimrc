@@ -21,6 +21,7 @@ set magic               " Improves default search
 set autoread            " Prompt to reread a file if it changes
 set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
+set colorcolumn=80      " Set to highlight text after 80 characters
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
@@ -29,6 +30,7 @@ set suffixes+=.info,.out,.o,.lo,.bak,~,.swp,.o,.info,.log
 set viminfo='20,\"500
 
 scriptencoding utf-8
+
 
 " =============================================================================
 "                                   Styling
@@ -47,7 +49,7 @@ set t_Co=256            " We use 256 color terminal emulators these days.
 " Folding
 if version >= 600
     set foldenable
-    set foldmethod=marker
+    set foldmethod=indent
 endif
 
 " =============================================================================
@@ -72,7 +74,6 @@ set cinoptions=e-s,g0,t0,(0,W4
 " =============================================================================
 "                               Custom Functions
 " =============================================================================
-
 
 
 " =============================================================================
@@ -102,6 +103,10 @@ nnoremap <F11> :set list!<CR>
 
 " Toggle paste mode.
 set pastetoggle=<F12>
+
+" Map ,ev and ,sv to edit and source vimrc file respectively
+map ,ev :tabe ~/.vimrc<Enter>
+map ,sv :source $MYVIMRC<Enter>
 
 " =============================================================================
 "                                    Vundle
@@ -173,3 +178,4 @@ endif
 
 " vim: set fenc=utf-8 sw=2 sts=2 foldmethod=marker :
 autocmd FileType make setlocal noexpandtab
+au FileType ruby setl sw=2 sts=2 et
