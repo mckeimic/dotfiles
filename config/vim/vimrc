@@ -22,7 +22,7 @@ set autoread            " Prompt to reread a file if it changes
 set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
 set colorcolumn=80      " Set to highlight text after 80 characters
-set spell spelland=en_us " Turn on spellchecking
+set spell               " Turn on spellchecking
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
