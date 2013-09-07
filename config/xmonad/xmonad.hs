@@ -1,3 +1,4 @@
+import XMonad
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -51,8 +52,7 @@ main = do
              }
              `additionalKeys`
              [ ((myModMask .|. shiftMask, xK_t), sendMessage $ ToggleStrut D)
-             , ((myModMask, xK_q), spawn
-                     "xmonad --recompile && (killall conky; killall trayer; xmonad --restart)")
+             , ((myModMask, xK_q), spawn "xmonad --recompile && (killall conky; killall trayer; xmonad --restart)")
              , ((myModMask       ,  xK_g), spawn "google-chrome")
              , ((0       ,  xK_Print), spawn "xfce4-screenshooter -f")
              , ((mod1Mask,  xK_Print), spawn "xfce4-screenshooter -w")

@@ -14,6 +14,9 @@ vim +BundleInstall +qall
 echo "Linking tmux things..."
 ln -ins ~/.mconfig/config/tmux/tmux.conf ~/.tmux.conf
 
+echo "Configuring screen  things..."
+ln -ins ~/.mconfig/config/screen/screenrc ~/.screenrc
+
 echo "Installing Zsh things..."
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 chsh -s $(which zsh)
