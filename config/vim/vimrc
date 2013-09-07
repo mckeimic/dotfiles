@@ -22,6 +22,7 @@ set autoread            " Prompt to reread a file if it changes
 set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
 set colorcolumn=80      " Set to highlight text after 80 characters
+set spell spelland=en_us " Turn on spellchecking
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
@@ -74,7 +75,11 @@ set cinoptions=e-s,g0,t0,(0,W4
 " =============================================================================
 "                               Custom Functions
 " =============================================================================
+" Quickly close HTML tags
+imap ,/ </<C-X><C-O><Esc>%i
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+ cmap w!! w !sudo tee > /dev/null %
 
 " =============================================================================
 "                                 Key Bindings
@@ -97,6 +102,7 @@ map <C-l> <C-W>l
 
 " Clear last search highlighting
 nnoremap <CR> :noh<CR><CR>
+nnoremap <space> :noh<CR><CR>
 
 " Toggle list mode (display unprintable characters).
 nnoremap <F11> :set list!<CR>
