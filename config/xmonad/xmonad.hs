@@ -1,4 +1,3 @@
-import XMonad
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -58,13 +57,12 @@ main = do
              , ((0       ,  xK_Print), spawn "xfce4-screenshooter -f")
              , ((mod1Mask,  xK_Print), spawn "xfce4-screenshooter -w")
              , ((shiftMask, xK_Print), spawn "xfce4-screenshooter -r")
-             , ((myModMask .|. shiftMask, xK_l),
-                     spawn "gnome-screensaver-command -l")
+             , ((myModMask .|. shiftMask, xK_l), spawn "gnome-screensaver-command -l")
              ]
 
 myModMask = mod1Mask
 
-myWorkspaces = ["1:main", "2:web", "3:terminal"] ++ map show [4..8] ++ ["irc"]
+myWorkspaces = ["1:main", "2:web", "3:terminal", "4:chat", "5:music", "6:VM"] ++ map show [7..8] ++ ["9"]
 
 myManageHook = composeOne
                [ isFullscreen                 -?> doFullFloat
