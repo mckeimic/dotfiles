@@ -2,3 +2,4 @@ config/xmonad/xmonad.errors
 config/xmonad/xmonad.o
 config/xmonad/xmonad.hi
 config/xmonad/history
+config/xmonad/xmonad-x86_64-linux

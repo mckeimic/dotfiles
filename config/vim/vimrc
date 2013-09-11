@@ -90,7 +90,7 @@ let mapleader=","
 :command NT NERDTreeToggle
 map <F2> :NERDTreeToggle<CR>
 
-map! jj <Esc>
+map! jk <Esc>
 map gr gT
 map j gj
 map k gk
