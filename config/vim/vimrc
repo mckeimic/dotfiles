@@ -124,6 +124,10 @@ map ,sv :source $MYVIMRC<Enter>
 " Map F5 to destroy trailing whitepace
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
+" Map jj and kk to escape
+inoremap jj <Esc>
+inoremap kk <Esc>
+
 " =============================================================================
 "                                    Vundle
 " =============================================================================
@@ -178,6 +182,7 @@ let g:tex_flavor = 'latex'
 set grepprg=grep\ -nH\ $*
 
 " Needs to be executed after Vundle.
+filetype on
 filetype plugin indent on
 
 " Supertab Things
