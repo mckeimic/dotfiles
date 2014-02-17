@@ -160,6 +160,8 @@ Bundle "scrooloose/nerdcommenter"
 Bundle "ervandew/supertab"
 Bundle "vim-scripts/AutoComplPop"
 Bundle "tpope/vim-surround"
+Bundle 'Yggdroot/indentLine'
+Bundle 'vim-scripts/jcommenter'
 
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'solarized256'
@@ -182,8 +184,8 @@ let g:tex_flavor = 'latex'
 set grepprg=grep\ -nH\ $*
 
 " Needs to be executed after Vundle.
-filetype on
-filetype plugin indent on
+filetype plugin on
+filetype indent on
 
 " Supertab Things
 let g:SuperTabCrMapping = 0
@@ -206,3 +208,22 @@ endif
 " vim: set fenc=utf-8 sw=2 sts=2 foldmethod=marker :
 autocmd FileType make setlocal noexpandtab
 au FileType ruby setl sw=2 sts=2 et
+
+"
+" Auto completing Stuff
+"
+set omnifunc=syntaxcomplete#Complete
+" Make enter select the highlighted item
+inoremap <expr> <C-CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Keep selecting nearest item in list as completion options are narrowed
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" : "\\
+"\ "\<lt>C-n>" :pumvisible() ? "\b" : "\\
+""\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .pumvisible() ? "\" : "\\
+"\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .pumvisible() ? "\ " : "\\
+""\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"pumvisible() ? "\e" : "\\
+"imap <C-@> <C-Space>
