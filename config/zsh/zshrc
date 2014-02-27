@@ -11,7 +11,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git gem rails rails3 ruby svn zsh-syntax-highlighting zsh-title)
+plugins=(git gem rails ruby zsh-syntax-highlighting zsh-title autojump pip python screen)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=$HOME/bin:$PATH
 
-case $OSTYPE in 
+case $OSTYPE in
 darwin*)
     #PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     #MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
