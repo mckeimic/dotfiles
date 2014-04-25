@@ -22,7 +22,7 @@ set autoread            " Prompt to reread a file if it changes
 set wrap                " Wraps long lines
 set scrolloff=5         " Always shows five lines of vertical context around the cursor
 set colorcolumn=80      " Set to highlight text after 80 characters
-set spell               " Turn on spellchecking
+set nospell               " Turn off spellchecking
 
 " Low priority for these files in tab-completion.
 set suffixes+=.aux,.bbl,.blg,.dvi,.log,.pdf,.fdb_latexmk
@@ -34,6 +34,12 @@ scriptencoding utf-8
 
 " Destroy Trailing Whitespace before saving files
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Open file at the same place as the last time it was open
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
 
 " =============================================================================
 "                                   Styling
@@ -86,7 +92,7 @@ set cinoptions=e-s,g0,t0,(0,W4
 imap ,/ </<C-X><C-O><Esc>%i
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
- cmap w!! w !sudo tee > /dev/null %
+cmap w!! w !sudo tee > /dev/null %
 
 " =============================================================================
 "                                 Key Bindings
@@ -128,6 +134,13 @@ nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 inoremap jj <Esc>
 inoremap kk <Esc>
 
+" Map Gundo to F5
+nnoremap <F5> :GundoToggle<CR>
+
+" Map Ctrl+P to well.... ctrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 " =============================================================================
 "                                    Vundle
 " =============================================================================
@@ -137,31 +150,56 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'DamienCassou/textlint'
-"Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Yggdroot/indentLine'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'scrooloose/nerdtree'
+Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
-Bundle 'tpope/vim-endwise'
+Bundle 'kien/ctrlp.vim'
+"Bundle 'klen/python-mode'
+Bundle 'nvie/vim-flake8'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'jakar/vim-json'
-Bundle 'nono/vim-handlebars'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'groenewege/vim-less'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
 Bundle 'vim-ruby/vim-ruby'
-Bundle "scrooloose/syntastic"
-Bundle "scrooloose/nerdcommenter"
-Bundle "ervandew/supertab"
-Bundle "vim-scripts/AutoComplPop"
-Bundle "tpope/vim-surround"
-Bundle 'Yggdroot/indentLine'
-Bundle 'vim-scripts/jcommenter'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'vim-scripts/Gundo'
+
+" Grammar Checker
+Bundle 'DamienCassou/textlint'
+" LESS (bascially CSS) highlighting, indentation, and autocompletion
+Bundle 'groenewege/vim-less'
+
+" JSON highlighting and indentation
+Bundle 'jakar/vim-json'
+
+" Shortcuts for the awesome templating system
+Bundle 'mustache/vim-mustache-handlebars'
+
+" Ends structures (like if in ruby)
+Bundle 'tpope/vim-endwise'
+
+" runtime for Haml, Sass, and SCSS
+Bundle 'tpope/vim-haml'
+
+" Markdown Runtime Files
+Bundle 'tpope/vim-markdown'
+
+" Snippet Stuff
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+
+" Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+"Bundle 'kchmck/vim-coffee-script'
+"Bundle 'vim-scripts/jcommenter'
 
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'solarized256'
@@ -222,8 +260,3 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" : "\\
-"\ "\<lt>C-n>" :pumvisible() ? "\b" : "\\
-""\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .pumvisible() ? "\" : "\\
-"\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .pumvisible() ? "\ " : "\\
-""\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"pumvisible() ? "\e" : "\\
-"imap <C-@> <C-Space>
