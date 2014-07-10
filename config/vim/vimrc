@@ -146,60 +146,60 @@ let g:ctrlp_cmd = 'CtrlP'
 " =============================================================================
 
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'Yggdroot/indentLine'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'ervandew/supertab'
-Bundle 'godlygeek/tabular'
-Bundle 'kien/ctrlp.vim'
-"Bundle 'klen/python-mode'
-Bundle 'nvie/vim-flake8'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/AutoComplPop'
-Bundle 'vim-scripts/Gundo'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'Yggdroot/indentLine'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ervandew/supertab'
+Plugin 'godlygeek/tabular'
+Plugin 'kien/ctrlp.vim'
+"Plugin 'klen/python-mode'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/AutoComplPop'
+Plugin 'vim-scripts/Gundo'
 
 " Grammar Checker
-Bundle 'DamienCassou/textlint'
+Plugin 'DamienCassou/textlint'
 " LESS (bascially CSS) highlighting, indentation, and autocompletion
-Bundle 'groenewege/vim-less'
+Plugin 'groenewege/vim-less'
 
 " JSON highlighting and indentation
-Bundle 'jakar/vim-json'
+Plugin 'jakar/vim-json'
 
 " Shortcuts for the awesome templating system
-Bundle 'mustache/vim-mustache-handlebars'
+Plugin 'mustache/vim-mustache-handlebars'
 
 " Ends structures (like if in ruby)
-Bundle 'tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 
 " runtime for Haml, Sass, and SCSS
-Bundle 'tpope/vim-haml'
+Plugin 'tpope/vim-haml'
 
 " Markdown Runtime Files
-Bundle 'tpope/vim-markdown'
+Plugin 'tpope/vim-markdown'
 
 " Snippet Stuff
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
+Plugin "MarcWeber/vim-addon-mw-utils"
+Plugin "tomtom/tlib_vim"
+Plugin "garbas/vim-snipmate"
+Plugin "honza/vim-snippets"
 
-" Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
-"Bundle 'kchmck/vim-coffee-script'
-"Bundle 'vim-scripts/jcommenter'
+" Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+"Plugin 'kchmck/vim-coffee-script'
+"Plugin 'vim-scripts/jcommenter'
 
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'solarized256'
