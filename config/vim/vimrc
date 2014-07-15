@@ -192,10 +192,10 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 
 " Snippet Stuff
-Plugin "MarcWeber/vim-addon-mw-utils"
-Plugin "tomtom/tlib_vim"
-Plugin "garbas/vim-snipmate"
-Plugin "honza/vim-snippets"
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 
 " Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'kchmck/vim-coffee-script'
