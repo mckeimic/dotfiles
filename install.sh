@@ -1,25 +1,39 @@
 #!/bin/bash
 
-echo "Pick your install."
-echo
-echo
-echo "1.) Full install (requires git)"
-echo "2.) Minimal install (requires nothing)"
-echo
-echo
-read -p "Option? " option
+set -e
+set -u
 
-case "$option" in
-1)    echo "Beginning...."
-      cd
-      git clone https://github.com/mckeimic/mconfig .mconfig
-      ./.mconfig/full_install.sh
-      ;;
-2)    echo "Minimal Install"
-      echo "Curl-ing files down....."
-      curl -L -o mconfig.zip http://github.com/mckeimic/mconfig/zipball/master/
-      unzip -d .mconfig mconfig.zip
-      rm -rf mconfig.zip
-esac
+ANSIBLEDIR=/tmp/ansible-mconfig
 
-echo "Enjoy!"
+function main {
+    case "$1" in
+        osx)
+            osx
+            ;;
+        ubuntu)
+            ubuntu
+            ;;
+        *)
+            echo "Please pass either 'osx' or 'ubuntu' in as the first argument"
+    esac
+
+    setup
+}
+
+function ubuntu {
+    sudo apt-get install ansible
+}
+
+function osx {
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install ansible
+}
+
+function setup {
+    trap "{ rm -f $ANSIBLEDIR ; exit 255; }" EXIT
+    git clone https://github.com/mckeimic/Ansible.git $ANSIBLEDIR
+    ansible-playbook $ANSIBLEDIR/personalize.yml --ask-sudo-pass
+}
+
+main $@
+exit 0

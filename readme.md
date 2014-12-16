@@ -1,21 +1,24 @@
 #mConfig#
 
-##You Should Probably Know##
+If you're lazy and trusting
 
-Before runnning anything, there are two types of install:
-  1. Full - a complete install of my environment. Everything from .vimrc to .xmonad/ is installed
-  2. Minimal - a travelling installation including just a more portable version of .vimrc and tmux
+## How the configuration is set up
+After a couple years of having this, I decided I hate shell scripts. On the
+upside, I love Ansible. So I wrote an Ansible role to setup these configs. Yay.
 
-The full option installs configuration for `git tmux vim xmonad python ls zsh bash` and git is **required** for the install
+Long story short, to set this up you need to apply the "personalized" role from here: https://github.com/mckeimic/Ansible.git
 
-The minimal option has no significant requirements as it simply downloads, unzips, and later deletes itself after putting its configs in the right places. 
+That can be done by...
 
-##Actually getting it##
-Download and run install.sh. The best way is the curl option shown here. If that not available, improvise. You just need to run install.sh somewhere.
+## Installation ##
+### The script-ey way ###
+For Ubuntu/Debian: `bash <(curl -s https://raw.github.com/mckeimic/mconfig/master/install.sh) ubuntu`
 
-    bash <(curl -s https://raw.github.com/mckeimic/mconfig/master/install.sh)
+For OS X: `bash <(curl -s https://raw.github.com/mckeimic/mconfig/master/install.sh) osx`
 
-##Updating It##
+NOTE: The OS X installer will try to install homebrew for you first!
 
-I recommend going into the installation directory (probably ~/.mconfig/) and doing a git pull; if you set it up without git though you're on your own.
-
+### The Manual Way ####
+. Install python and ansible (that's just `sudo apt-get install ansible python`  or `brew install ansible` respectively)
+. `git clone https://github.com/mckeimic/Ansible.git`
+. `ansible-playbook personalize.yml --ask-sudo-pass`  (or `ansible-playbook personalize_remote.yml -k --ask-sudo-pass` as the case may be)
