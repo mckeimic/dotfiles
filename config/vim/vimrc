@@ -100,8 +100,7 @@ cmap w!! w !sudo tee > /dev/null %
 
 let mapleader=","
 
-:command NT NERDTreeToggle
-map <F2> :NERDTreeToggle<CR>
+" :command NT NERDTreeToggle
 
 map! jk <Esc>
 map gr gT
@@ -119,13 +118,6 @@ nnoremap <space> :noh<CR><CR>
 
 " Toggle list mode (display unprintable characters).
 nnoremap <F11> :set list!<CR>
-
-" Toggle paste mode.
-set pastetoggle=<F12>
-
-" Map ,ev and ,sv to edit and source vimrc file respectively
-map ,ev :tabe ~/.vimrc<Enter>
-map ,sv :source $MYVIMRC<Enter>
 
 " Map F5 to destroy trailing whitepace
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
@@ -149,10 +141,9 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ervandew/supertab'
@@ -171,38 +162,40 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'vim-scripts/Gundo'
 
+Plugin 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+
+Plugin 'bling/vim-bufferline'
+Plugin 'airblade/vim-gitgutter'
+
+
 " Grammar Checker
-Plugin 'DamienCassou/textlint'
+" Plugin 'DamienCassou/textlint'
 " LESS (bascially CSS) highlighting, indentation, and autocompletion
-Plugin 'groenewege/vim-less'
+" Plugin 'groenewege/vim-less'
 
 " JSON highlighting and indentation
-Plugin 'jakar/vim-json'
-
-" Shortcuts for the awesome templating system
-Plugin 'mustache/vim-mustache-handlebars'
+" lugin 'jakar/vim-json'
 
 " Ends structures (like if in ruby)
-Plugin 'tpope/vim-endwise'
+" Plugin 'tpope/vim-endwise'
 
 " runtime for Haml, Sass, and SCSS
-Plugin 'tpope/vim-haml'
-
-" Markdown Runtime Files
-Plugin 'tpope/vim-markdown'
+" Plugin 'tpope/vim-haml'
 
 " Snippet Stuff
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
+" Plugin 'honza/vim-snippets'
 
 " Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'kchmck/vim-coffee-script'
 "Plugin 'vim-scripts/jcommenter'
 
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'solarized256'
+" Plugin 'Lokaltog/vim-powerline'
+"let g:Powerline_symbols = 'fancy'
+"let g:Powerline_colorscheme = 'solarized256'
 set laststatus=2
 
 let g:EasyMotion_leader_key = '<Leader>'
@@ -222,8 +215,9 @@ let g:tex_flavor = 'latex'
 set grepprg=grep\ -nH\ $*
 
 " Needs to be executed after Vundle.
-filetype plugin on
-filetype indent on
+filetype plugin indent on
+" filetype indent on
+
 
 " Supertab Things
 let g:SuperTabCrMapping = 0
@@ -241,6 +235,7 @@ if has("spell")
   autocmd BufRead,BufNewFile *.dox  set spell
   autocmd Filetype mail             set spell
   autocmd Filetype tex              set spell
+  autocmd Filetype adoc             set spell
 endif
 
 " vim: set fenc=utf-8 sw=2 sts=2 foldmethod=marker :
@@ -260,3 +255,6 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" : "\\
+
+" This shouldn't have to be here...
+call vundle#config#require(g:bundles)
