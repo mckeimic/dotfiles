@@ -166,7 +166,6 @@ Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 
 Plugin 'bling/vim-bufferline'
-Plugin 'airblade/vim-gitgutter'
 
 
 " Grammar Checker
@@ -231,6 +230,9 @@ if &t_Co > 2 || has('gui_running')
   syntax on
 endif
 
+au BufNewFile,BufRead *.adoc set filetype=adoc
+au BufNewFile,BufRead *.adoc set makeprg=asciidoctor\ %
+
 if has("spell")
   autocmd BufRead,BufNewFile *.dox  set spell
   autocmd Filetype mail             set spell
@@ -255,6 +257,10 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" : "\\
+
+" Map <leader>a to run asciidoctor on the current file
+"autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR> " Set
+"makeprg above instead!
 
 " This shouldn't have to be here...
 call vundle#config#require(g:bundles)
