@@ -201,7 +201,7 @@ Plugin 'chase/vim-ansible-yaml'
 "let g:Powerline_colorscheme = 'solarized256'
 set laststatus=2
 
-let g:EasyMotion_leader_key = '<Leader>'
+let g:EasyMotion_leader_key = '<Leader><Leader>'
 
 " Solarized
 let g:solarized_menu = 0
@@ -265,8 +265,5 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" 
 
 " Map <leader>a to run asciidoctor on the current file
 autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR>
-
-" This shouldn't have to be here...
-" call vundle#config#require(g:bundles)
 
 colorscheme solarized
