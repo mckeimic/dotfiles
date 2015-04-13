@@ -100,7 +100,7 @@ cmap w!! w !sudo tee > /dev/null %
 
 let mapleader=","
 
-" :command NT NERDTreeToggle
+:command NT NERDTreeToggle
 
 map! jk <Esc>
 map gr gT
@@ -160,18 +160,22 @@ Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/AutoComplPop'
-Plugin 'vim-scripts/Gundo'
+" Plugin 'vim-scripts/Gundo'
 
 Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 
 Plugin 'bling/vim-bufferline'
 
+" Ansible stuff
+Plugin 'chase/vim-ansible-yaml'
 
 " Grammar Checker
 " Plugin 'DamienCassou/textlint'
 " LESS (bascially CSS) highlighting, indentation, and autocompletion
 " Plugin 'groenewege/vim-less'
+" Plugin 'vim-scripts/LanguageTool'
+" let g:languagetool_jar='/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar'
 
 " JSON highlighting and indentation
 " lugin 'jakar/vim-json'
@@ -188,7 +192,7 @@ Plugin 'bling/vim-bufferline'
 " Plugin 'garbas/vim-snipmate'
 " Plugin 'honza/vim-snippets'
 
-" Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'kchmck/vim-coffee-script'
 "Plugin 'vim-scripts/jcommenter'
 
@@ -200,20 +204,20 @@ set laststatus=2
 let g:EasyMotion_leader_key = '<Leader>'
 
 " Solarized
-"let g:solarized_menu = 0
-"let g:solarized_termtrans = 1
-"let g:solarized_contrast = 'high'
-"let g:solarized_hitrail = 1
-"if !has('gui_running')
-"  let g:solarized_termcolors = 256
-"end
-silent! colorscheme solarized
+let g:solarized_menu = 0
+let g:solarized_termtrans = 1
+let g:solarized_contrast = 'high'
+let g:solarized_hitrail = 1
+if !has('gui_running')
+  let g:solarized_termcolors = 256
+end
 
 " LaTeX Suite: Prevents Vim 7 from setting filetype to 'plaintex'.
-let g:tex_flavor = 'latex'
+" let g:tex_flavor = 'latex'
 set grepprg=grep\ -nH\ $*
 
 " Needs to be executed after Vundle.
+call vundle#end()
 filetype plugin indent on
 " filetype indent on
 
@@ -232,6 +236,7 @@ endif
 
 au BufNewFile,BufRead *.adoc set filetype=adoc
 au BufNewFile,BufRead *.adoc set makeprg=asciidoctor\ %
+au Filetype adoc                    set makeprg=asciidoctor\ %
 
 if has("spell")
   autocmd BufRead,BufNewFile *.dox  set spell
@@ -259,8 +264,9 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?pumvisible() ? "\" : "\\
 
 " Map <leader>a to run asciidoctor on the current file
-"autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR> " Set
-"makeprg above instead!
+autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR>
 
 " This shouldn't have to be here...
-call vundle#config#require(g:bundles)
+" call vundle#config#require(g:bundles)
+
+colorscheme solarized
