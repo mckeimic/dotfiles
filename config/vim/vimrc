@@ -133,6 +133,9 @@ nnoremap <F5> :GundoToggle<CR>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+" Make sure ctrl+p actually finds all the files
+let g:ctrlp_max_files=0
+
 " =============================================================================
 "                                    Vundle
 " =============================================================================
