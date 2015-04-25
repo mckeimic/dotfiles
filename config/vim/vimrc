@@ -187,12 +187,14 @@ Plugin 'chase/vim-ansible-yaml'
 " Plugin 'tpope/vim-haml'
 
 " Snippet Stuff
-" Plugin 'MarcWeber/vim-addon-mw-utils'
-" Plugin 'tomtom/tlib_vim'
-" Plugin 'garbas/vim-snipmate'
-" Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
-"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'kchmck/vim-coffee-script'
 "Plugin 'vim-scripts/jcommenter'
 
@@ -213,8 +215,10 @@ if !has('gui_running')
 end
 
 " LaTeX Suite: Prevents Vim 7 from setting filetype to 'plaintex'.
-" let g:tex_flavor = 'latex'
-set grepprg=grep\ -nH\ $*
+let g:tex_flavor = 'latex'
+let g:tex_conceal = "" " *grumbling*... http://tex.stackexchange.com/questions/96741/vim-latex-suite-unwanted-in-editor-math-symbol-conversion
+
+"set gepprg=grep\ -nH\ $* " ? what is this?
 
 " Needs to be executed after Vundle.
 call vundle#end()
@@ -236,6 +240,7 @@ endif
 
 au BufNewFile,BufRead *.adoc set filetype=adoc
 au BufNewFile,BufRead *.adoc set makeprg=asciidoctor\ %
+au BufNewFile,BufRead *.tex set makeprg=pdflatex\ %
 au Filetype adoc                    set makeprg=asciidoctor\ %
 
 if has("spell")
