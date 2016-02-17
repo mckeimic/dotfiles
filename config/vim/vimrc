@@ -219,6 +219,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/AutoComplPop'
@@ -231,6 +232,10 @@ Plugin 'bling/vim-bufferline'
 
 " Ansible stuff
 Plugin 'chase/vim-ansible-yaml'
+
+" Ctags Plugin
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
 " Grammar Checker
 " Plugin 'DamienCassou/textlint'
@@ -256,7 +261,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'kchmck/vim-coffee-script'
 "Plugin 'vim-scripts/jcommenter'
 
@@ -265,7 +270,7 @@ Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "let g:Powerline_colorscheme = 'solarized256'
 set laststatus=2
 
-let g:EasyMotion_leader_key = '<Leader><Leader>'
+let g:EasyMotion_leader_key = '<Leader>'
 
 " Solarized
 let g:solarized_menu = 0
@@ -300,10 +305,10 @@ if &t_Co > 2 || has('gui_running')
   syntax on
 endif
 
-au BufNewFile,BufRead *.adoc set filetype=adoc
-au BufNewFile,BufRead *.adoc set makeprg=asciidoctor\ %
-au BufNewFile,BufRead *.tex set makeprg=pdflatex\ %
-au Filetype adoc                    set makeprg=asciidoctor\ %
+"au BufNewFile,BufRead *.adoc set filetype=adoc
+"au BufNewFile,BufRead *.adoc set makeprg=asciidoctor\ %
+"au BufNewFile,BufRead *.tex set makeprg=pdflatex\ %
+"au Filetype adoc                    set makeprg=asciidoctor\ %
 
 if has("spell")
   autocmd BufRead,BufNewFile *.dox  set spell
@@ -335,4 +340,3 @@ autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR>
 
 colorscheme solarized
 Plugin 'rking/ag.vim'
-
