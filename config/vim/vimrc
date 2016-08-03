@@ -221,8 +221,15 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-sensible'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/AutoComplPop'
+Plugin 'mileszs/ack.vim'
+
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
 " Plugin 'vim-scripts/Gundo'
 
 Plugin 'bling/vim-airline'
