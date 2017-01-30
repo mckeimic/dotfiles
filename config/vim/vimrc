@@ -41,6 +41,10 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 
+" Some things to make vim handle long lines without getting bogged down
+set synmaxcol=128 " Don't highlght characters after 128
+set lazyredraw    " Helps avoid some scrolling problems
+
 " =============================================================================
 "                                   Styling
 " =============================================================================
@@ -347,3 +351,12 @@ autocmd BufEnter *.adoc noremap <leader>a <Esc>:!asciidoctor %<CR>
 
 colorscheme solarized
 Plugin 'rking/ag.vim'
+
+
+" C# enters my life sometimes
+if !exists("autocommands_loaded")
+let autocommands_loaded = 1
+
+" setup folding
+autocmd BufNewFile,BufRead *.cs set foldmethod=syntax
+endif
